@@ -1,0 +1,66 @@
+{% extends "master.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card-top"></div>
+            <div class="card">
+                <div class="row" style="padding-left:30px">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h1 class="title" style="text-align:center">Search Station
+                            <img src="{% static 'Images/locate.png' %}" width="50px" alt="Search Icon">
+                        </h1>
+                        <div class="col-md-12">
+                            <form id="sign_in" method="post">
+                                {% csrf_token %}
+                                <div>
+                                    <div class="form-line">
+                                        <center>
+                                            <img src="{% static 'Images/mapLocate.jpg' %}" alt="Map" height="150px" width="30%">
+                                        </center>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="zmdi zmdi-account"></i>
+                                    </span>
+                                    <div class="form-line">
+                                        <select id="ddlArea" name="ddlArea" class="form-control" style="height: 25px; width: 100%;">
+                                            <option value="">Search By</option>
+                                            <option value="Station Name">Station Name</option>
+                                            <option value="Area">Area</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="zmdi zmdi-account"></i>
+                                    </span>
+                                    <div class="form-line">
+                                        <input type="text" id="txtusername" name="txtusername" class="form-control" placeholder="Search">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-raised g-bg-cyan waves-effect" name="search_button">Search</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <a href="{% url 'home' %}">Home Page</a>
+                                    </div>
+                                    <br />
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-raised g-bg-cyan waves-effect" name="status_button">Search User Status</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
