@@ -1,0 +1,132 @@
+<!-- station/templates/station/sbooking_status.html -->
+
+{% extends 'stationMaster.html' %}
+
+{% block body %}
+<div class="row" style="padding-left:30px ">
+    <div class="col-md-1" ></div>
+    <div class="col-md-8" >
+        <div class="card">
+            <div class="card-header">
+                <center><h3>Station Booking</h3></center>
+            </div>
+            <div class="row" style="padding-left:30px ;padding-right:30px" >
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Customer Name
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" placeholder="Customer Name" value="{{ customer_name }}" readonly>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Vehicle Registration Number
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" placeholder="Vehicle Registration Number" value="{{ vehicle_registration }}" readonly>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Charger Type
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" placeholder="Charger Type" value="{{ charger_type }}" readonly>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="zmdi zmdi-calendar"></i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" placeholder="Date" value="{{ start_date_time }}" readonly>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Arrival Time
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" placeholder="Arrival Time" value="{{ arrival_time }}" readonly>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Description
+                    </span>
+                    <!-- Add Description input if needed -->
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Unit
+                    </span>
+                    <div class="form-line">
+                        <label>{{ unit }} KW</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Time
+                    </span>
+                    <div class="form-line">
+                        <label>{{ time }} min</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Amount
+                    </span>
+                    <div class="form-line">
+                        <label>{{ amount }} ₹</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Add Remark
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" placeholder="Add remark" id="txtremark" name="txtremark" ValidationGroup="a">
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtremark" ErrorMessage="*" Display="Dynamic"  ValidationGroup="a"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Status Type
+                    </span>
+                    <div class="form-line">
+                        <select id="ddlstatus" class="btn btn-danger dropdown-toggle" placeholder="Charging Type" name="ddlstatus" ForeColor="White" ValidationGroup="a">
+                            <option value="">Set Action</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Accept">Accept</option>
+                            <option value="Reject">Reject</option>
+                        </select>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlstatus" ErrorMessage="*" Display="Dynamic"  ValidationGroup="a"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-raised g-bg-cyan waves-effect" onclick="submitForm()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2" ></div>
+</div>
+<script>
+    function submitForm() {
+        // Add JavaScript logic for form submission if needed
+        // You can use AJAX to submit the form data to the Django view
+    }
+</script>
+{% endblock %}
