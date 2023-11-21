@@ -1,0 +1,54 @@
+<!-- station/templates/station/stationbooking.html -->
+
+{% extends 'stationMaster.html' %}
+
+{% block body %}
+<div class="row" style="padding-left:30px ">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <center><h3>Booking Details</h3></center>
+            </div>
+            <div class="row" style="padding-left:30px ;padding-right:30px" >
+                <div class="col-md-12" >
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Customer</th>
+                                        <th>Vehicle No.</th>
+                                        {% comment %} <th>Date</th> {% endcomment %}
+                                        <th>Date & Time</th>
+                                        <th>User Remark</th>
+                                        <th>Station Remark</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for booking in bookings %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'updateBookingStatus' booking.slotID %}" class="btn btn-warning btn-sm" style="color: white; font-size: medium; font-weight: bold;">Update Status</a>
+                                            </td>
+                                            <td>{{ booking.customerName }}</td>
+                                            <td>{{ booking.vehicleRegistration }}</td>
+                                            {% comment %} <td>{{ booking.Startdatetime }}</td> {% endcomment %}
+                                            <td>{{ booking.arrivalTime }}</td>
+                                            <td>{{ booking.userRemark }}</td>
+                                            <td>{{ booking.stationRemark }}</td>
+                                            <td>{{ booking.status }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
