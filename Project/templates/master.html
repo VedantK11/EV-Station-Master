@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="/static/assets/plugins/morrisjs/morris.css" rel="stylesheet" />
+    <link href="/static/assets/css/main.css" rel="stylesheet">
+    <link href="/static/assets/css/themes/all-themes.css" rel="stylesheet" />
+    
+</head>
+<body class="theme-cyan">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-cyan">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!--  Page Loader -->
+    <!-- Overlay For Sidebars -->
+    {% comment %} <div class="overlay"></div> {% endcomment %}
+    <!-- Overlay For Sidebars  end -->
+    <!-- Top Bar -->
+     {% comment %} <nav class="navbar flex-row">
+        <div class="container-fluid">
+             <div class="navbar-header" style="text-align: left;">
+                <a class="navbar-brand" style="text-align: left;"  href="#">Charging Station Master</a>
+            </div> 
+        </div>
+    </nav>    {% endcomment %}
+    
+    <!-- Top Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="admin-image">
+                    <img src="/static/Images/home.png" alt="">
+               
+                </div>
+                <br/>
+                <p class="text-white fw-bold fs-3">
+                    Charging Station Master
+                </p>
+                <div class="admin-action-info">
+                </div>
+            </div>
+            <!-- User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="active open">
+                        <a href="{% url "index" %}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url "index" %}"><i class="zmdi zmdi-search"></i><span>Search Station</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url "stationLogin" %}"><i class="zmdi zmdi-account-o"></i><span>Station Login</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url "index" %}"><i class="zmdi zmdi-account-o"></i><span>Admin Login</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url "index" %}" target="_blank"><i class="zmdi zmdi-phone"></i><span>CONTACT</span></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- #Menu -->
+        </aside>
+        <!-- Left Sidebar end -->
+        <!-- Right Sidebar -->
+    </section>
+    <!-- Right Sidebar End -->
+    <section style="background:url()" class="content home">
+        <div class="container-fluid">
+            <div class="block-header">
+            </div>
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box-4 hover-zoom-effect">
+                        <div class="icon"> <i class="zmdi"><img src="/static/Images/locate.png" width="50px" alt="Locate Image"></i> </div>
+                        <div class="content">
+                            <h3><a href="{% url 'index' %}">Search Station</a></h3>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box-4 hover-zoom-effect">
+                        {# Commented out icon #}
+                        <div class="icon"> <i class="zmdi"><img src="/static/Images/homepage.jpg" width="55px" alt="Homepage Image"></i> </div>
+                        <div class="content">
+                            <h3><a href="{% url 'stationLogin' %}">Station Login</a></h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box-4 hover-zoom-effect">
+                        <div class="icon"> <i class="zmdi"><img src="/static/Images/admin.ico" width="50px" alt="Admin Image"></i> </div>
+                        <div class="content">
+                            <h3><a href="{% url 'index' %}">Admin Login</a></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    
+                
+    
+            </div>
+           {% block body %}{% endblock body %}
+        </div>
+    </section>
+    <div class="color-bg"></div>
+    <!-- JavaScript imports and scripts -->
+    <script src="/static/assets/bundles/libscripts.bundle.js"></script>
+    <script src="/static/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="/static/assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="/static/assets/plugins/chartjs/Chart.bundle.min.js"></script>
+    <script src="/static/assets/bundles/mainscripts.bundle.js"></script>
+    <script src="/static/assets/js/pages/charts/sparkline.min.js"></script>
+    <script src="/static/assets/js/pages/charts/chartjs.min.js"></script>
+    <script src="/static/assets/js/pages/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>

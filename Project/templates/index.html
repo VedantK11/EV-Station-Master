@@ -1,0 +1,58 @@
+{% extends "master.html" %}
+
+{% block body %}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                {% comment %} <div id="wowslider-container1">
+                    <div class="ws_images">
+                        <ul>
+                            <li><img src="/static/Images/Slider/b3.jpg" alt="3" title="3" id="wows1_0" /></li>
+                            <li><img src="/static/Images/GettyImages-1130678533_473619_xj1qdn.jpg" alt="1" title="1" id="wows1_1" /></li>
+                            <li><img src="/static/Images/tesla-model-3-supercharger.jpg" alt="2 carousel" title="4" id="wows1_2" /></a></li>
+                        </ul>
+                    </div>
+                    <div class="ws_shadow"></div>
+                </div> {% endcomment %}
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="/static/Images/Slider/b3.jpg" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="/static/Images/GettyImages-1130678533_473619_xj1qdn.jpg" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="/static/Images/tesla-model-3-supercharger.jpg" class="d-block w-100" alt="...">
+                      </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                {% comment %} <script type="text/javascript" src="/static/engine1/wowslider.js"></script>
+                <script type="text/javascript" src="/static/engine1/script.js"></script> {% endcomment %}
+                <br />
+                <br />
+                <br />
+                <br />
+                <marquee direction="up" scrollamount="3">
+                    <p style="font-weight: bold; font-size: large;">SAFETY INFORMATION</p>
+                    <ul style="font-family: 'times New Roman', Times, serif; font-size: large; font-weight: bold">
+                        <br />  <li>Always follow the EV charging safety guidelines and car safety guidelines laid down by the manufacturer when charging your vehicle.</li>
+                        <br /> <li>Properly maintain the charging station components as per the manufacturer's guidelines.</li>
+                        <br /> <li>Don't keep the vehicle battery completely full or empty.</li>
+                        <br /> <li>Check the vehicle batteries regularly.</li>
+                    </ul>
+                </marquee>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
