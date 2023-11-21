@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Station Registration</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="/static/assets/css/main.css" rel="stylesheet">
+    <link href="/static/assets/css/login.css" rel="stylesheet">
+    <link href="/static/assets/css/themes/all-themes.css" rel="stylesheet" />
+</head>
+<body class="login-page authentication">
+    <div class="container">
+        <div class="card-top"></div>
+        <div class="card">
+            <h1 class="title">
+                <span>Station</span> Register
+                <div class="msg">Register a new Station</div>
+            </h1>
+            <div class="col-md-12">
+                <form id="sign_up" class="col-xs-12" method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="txtstation" placeholder="Enter Station Name" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-email"></i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="txtEmail" placeholder="Enter Email" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-city"></i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="txtcity" placeholder="Enter City" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="txtnumber" placeholder="Enter Contact number" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="txtUsername" placeholder="Enter User Name" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-lock"></i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" name="txtPassword" placeholder="Enter Password" required>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-raised g-bg-cyan waves-effect" name="Button1">Submit</button>
+                    </div>
+                    <div class="m-t-10 m-b--5 align-center">
+                        <a href={% url 'stationLogin' %}>You already have a registration?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="theme-bg"></div>
+    <script src="/static/assets/bundles/libscripts.bundle.js"></script>
+    <script src="/static/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="/static/assets/bundles/mainscripts.bundle.js"></script>
+    <script src="/static/assets/js/pages/examples/sign-in.js"></script>
+</body>
+</html>
