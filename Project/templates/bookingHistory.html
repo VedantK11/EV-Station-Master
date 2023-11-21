@@ -1,0 +1,48 @@
+<!-- station/templates/station/status_page.html -->
+
+{% extends 'stationMaster.html' %}
+
+{% block body %}
+<div class="row" style="padding-left:30px ">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <center><h3>Booking History</h3></center>
+            </div>
+            <div class="row" style="padding-left:30px; padding-right:30px">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Vehicle No.</th>
+                                    {% comment %} <th>Date</th> {% endcomment %}
+                                    <th>Time</th>
+                                    <th>User Remark</th>
+                                    <th>Station Remark</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in data %}
+                                    <tr>
+                                        <td>{{ item.customerName }}</td>
+                                        <td>{{ item.vehicleRegistration }}</td>
+                                        {% comment %} <td>{{ item.Startdatetime }}</td> {% endcomment %}
+                                        <td>{{ item.arrivalTime }}</td>
+                                        <td>{{ item.userRemark }}</td>
+                                        <td>{{ item.stationRemark }}</td>
+                                        <td>{{ item.status }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
