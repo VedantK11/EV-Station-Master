@@ -1,0 +1,137 @@
+{% extends 'stationMaster.html' %}
+
+{% block body %}
+
+{% if message %}
+<script>
+                    // Display alert for 2 seconds
+    var message = "{{ message }}";
+    alert(message);
+                    
+    setTimeout(function(){
+    window.location.href = "{% url 'stationDetails' %}";  // Adjust the URL based on your Django project
+    }, 2000);  // 2000 milliseconds = 2 seconds
+</script>
+{% endif %}
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <center><h3>Station Details</h3></center>
+                </div>
+                <div class="row" style="padding-left:30px ;padding-right:30px">
+                    <form method="post" action="{% url 'stationDetails' %}">
+                        {% csrf_token %}
+
+                        <div class="col-md-4">
+                            <div class="form-group" style=" border:thin solid #000000;border-radius:20px">
+                                <center><label style="font-weight: bold;"  for="txtsID" >Station ID</label>
+                                <input type="text" id="txtsID" name="txtsID" class="form-control" style="text-align: center" value="{{ stationDetails.stationId }}"  readonly></center>
+                            </div>
+
+                            <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                                <center><label style="font-weight: bold;" for="txtoperationDHr">Operation Days & Hours</label></center>
+                                <center><input type="text" id="txtoperationDHr" name="txtoperationDHr" class="form-control" style="text-align: center" value="{{ stationDetails.dayTime }}"></center>
+                            </div>
+
+                            <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                                <center><label style="font-weight: bold;" for="txtspace">Parking Spaces In Sq.Ft</label></center>
+                                <center><input type="text" id="txtspace" name="txtspace" class="form-control" style="text-align: center" value="{{ stationDetails.Pspaces }}"></center>
+                            </div>
+
+                            <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                                <center><label style="font-weight: bold;"  for="ddlpaymentMode">Payment Mode</label></center>
+                                <center>
+                                    <select id="ddlpaymentMode" name="ddlpaymentMode" style="text-align: center" class="form-control">
+                                        <option style="align-text:center" value="" {% if stationDetails.Paymodes == '' %}selected{% endif %}>Select</option>
+                                        <option value="Cash" {% if stationDetails.Paymodes == 'Cash' %}selected{% endif %}>Cash</option>
+                                        <option value="UPI" {% if stationDetails.Paymodes == 'UPI' %}selected{% endif %}>UPI</option>
+                                        <option value="BOTH" {% if stationDetails.Paymodes == 'BOTH' %}selected{% endif %}>BOTH</option>
+                                    </select>
+                                </center>
+                            </div>
+
+                        <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                            <center><label style="font-weight: bold;" for="txtArea">Area</label></center>
+                            <center><input type="text" id="txtArea" name="txtArea" class="form-control" placeholder="Area" style="text-align: center" value="{{ stationDetails.Area }}"></center>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                            <center><label style="font-weight: bold;" for="txtpincode">Pincode</label></center>
+                            <center><input type="text" id="txtpincode" name="txtpincode" class="form-control" placeholder="Pincode" style="text-align: center" value="{{ stationDetails.Pincode }}"></center>
+                        </div>
+
+                        {% comment %} <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                            <center><label style="font-weight: bold;" for="cblvehicle">Vehicle Types</label></center>
+                            <center>
+                                <div class="form-check">
+                                    <input type="checkbox" id="cblvehicle1" class="form-check-input" />
+                                    <label style="font-weight: bold;" for="cblvehicle1">Car</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="cblvehicle2" class="form-check-input" />
+                                    <label style="font-weight: bold;" for="cblvehicle2">Bike/Scooter</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="cblvehicle3" class="form-check-input" />
+                                    <label style="font-weight: bold;" for="cblvehicle3">Three Wheeler</label>
+                                </div>
+                            </center>
+                        </div> {% endcomment %}
+
+                        <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                            <center><label style="font-weight: bold;" for="txtstate">State</label></center>
+                            <center><input type="text" id="txtstate" name="txtstate" class="form-control" placeholder="State" style="text-align: center" value="{{ stationDetails.state }}"></center>
+                        </div>
+
+                        <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                            <center><label style="font-weight: bold;" for="txtcity">City</label></center>
+                            <center><input type="text" id="txtcity" name="txtcity" class="form-control" placeholder="City" style="text-align: center " value="{{ stationDetails.city }}"> </center>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                            <center><label style="font-weight: bold;" for="txtrapid">Rapid Charger - 50KW+</label></center>
+                            <center><input type="number" id="txtrapid" name="txtrapid" class="form-control" placeholder="Rapid Charger - 50KW+" style="text-align: center" value="{{ stationDetails.rapidcharger }}"></center>
+                        </div>
+
+                        <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                            <center><label style="font-weight: bold;" for="txtfast">Fast Charger - 30KW+</label></center>
+                            <center><input type="number" id="txtfast" name="txtfast" class="form-control" placeholder="Fast Charger - 30KW+" style="text-align: center" value="{{ stationDetails.fastCharger }}"></center>
+                        </div>
+
+                        <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                            <center><label style="font-weight: bold;" for="txtslow">Slow Charger - 10KW+</label></center>
+                            <center><input type="number" id="txtslow" name="txtslow" class="form-control" placeholder="Slow Charger - 10KW+" style="text-align: center" value="{{ stationDetails.slowcharger }}"></center>
+                        </div>
+
+                        <div class="form-group" style="border:thin solid #000000;border-radius:20px">
+                            <center><label style="font-weight: bold;" for="txtloc1">Nearby Locations</label></center>
+                            <center><input type="text" id="txtloc1" name="txtloc1" class="form-control" placeholder="Location1" style="text-align: center" value="{{ stationDetails.loc1 }}"></center>
+                            <center><input type="text" id="txtloc2" name="txtloc2" class="form-control" placeholder="Location2" style="text-align: center" value="{{ stationDetails.loc2 }}" ></center>
+                            <center><input type="text" id="txtloc3" name="txtloc3" class="form-control" placeholder="Location3" style="text-align: center" value="{{ stationDetails.loc3 }}" ></center>
+                            <center><input type="text" id="txtloc4" name="txtloc4" class="form-control" placeholder="Location4" style="text-align: center" value="{{ stationDetails.loc4 }}" ></center>
+                            <center><input type="text" id="txtloc5" name="txtloc5" class="form-control" placeholder="Location5" style="text-align: center" value="{{ stationDetails.loc5 }}" ></center>
+                            <center><input type="text" id="txtloc6" name="txtloc6" class="form-control" placeholder="Location6" style="text-align: center" value="{{ stationDetails.loc6 }}" ></center>
+                        </div>
+                    </div>
+                </div>
+                {% comment %} <center><button id="btnsave" class="btn btn-raised waves-effect g-bg-cyan">Save</button></center>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+{% endblock %} {% endcomment %}
+
+<center><button type="submit" class="btn btn-primary">Save</button></center>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div class="col-md-1"></div>
+</div>
+{% endblock %}
