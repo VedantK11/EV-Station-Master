@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Admin</title>
+     <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <!-- Favicon-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="/static/assets/plugins/morrisjs/morris.css" rel="stylesheet" />
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> {% endcomment %}
+   
+    <!-- Custom Css -->
+    <link href="/static/assets/css/main.css" rel="stylesheet">
+    <link href="/static/assets/css/login.css" rel="stylesheet">
+    <!-- Swift Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="/static/assets/css/themes/all-themes.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="/static/engine1/style.css" />
+    <script type="text/javascript" src="/static/engine1/jquery.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Custom Css -->
+    <link href="/static/assets/css/main.css" rel="stylesheet">
+    <link href="/static/assets/css/login.css" rel="stylesheet">
+
+
+    <link href="/static/assets/css/themes/all-themes.css" rel="stylesheet" />
+
+</head>
+
+<body class="theme-cyan">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-cyan">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    
+    <!-- Top Bar -->
+    <nav class="navbar clearHeader">
+        <div class="container-fluid">
+             <div class="navbar-header">
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="#">Admin Section</a>
+            </div> 
+            <ul class="nav navbar-nav navbar-right">
+               
+                <li><a href="{% url 'index' %}" class="js-right-sidebar" data-close="true">LogOut <i class="zmdi zmdi-square-right"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+    
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="admin-image"> <img src="/static/Images/admin2.png" alt=""> 
+                </div>
+                <br/>
+                {% comment %} <p class="text-white fw-bold fs-4" style="text-color:white">
+                    Charging Station Master
+                </p> {% endcomment %}
+                <div class="admin-action-info"> 
+                <h4>Charging Station Master</h4> 
+                </div>
+                
+                {% comment %} <div class="quick-stats">
+                    <h4><span id="lblsname"></span></h4>
+                </div> {% endcomment %}
+            </div>
+            <!-- #User Info -->
+            
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="active open"><a href="{% url 'adminDefault' %}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
+                    <li class="active open"><a href="{% url 'stationList' %}"><i class="zmdi zmdi-account-o"></i><span>Station Details</span></a></li>
+                    <li class="active open"><a href="{% url 'index' %}"><i class="zmdi zmdi-square-right"></i><span>Log Out</span></a></li>                                               
+                </ul>
+            </div>
+            <!-- #Menu -->
+        </aside>
+        
+    </section>
+    
+    <section class="content home">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h3>Welcome <span id="Label1"></span> Admin</h3>
+            </div>
+            <div class="row justify-content-center ">
+                <!-- Your existing content HTML -->
+                
+                {% comment %} <form method="post" action="{% url 'index' %}">
+                    {% csrf_token %}
+                    
+                    <div>
+                        <div class="text-center">
+                            <button class="btn btn-raised waves-effect g-bg-cyan" type="submit">SIGN IN</button>
+                        </div>
+                        <div class="text-center"> <a href="{% url 'index' %}">Home Page</a></div>
+                    </div>
+                </form> {% endcomment %}
+            </div>
+            {% block body %}{% endblock body %}
+        </div>
+    </section>
+    
+    <div class="color-bg"></div>
+    
+    <!-- Jquery Core Js -->
+    <script src="/static/assets/bundles/libscripts.bundle.js"></script>
+    <!-- Lib Scripts Plugin Js -->
+    <script src="/static/assets/bundles/vendorscripts.bundle.js"></script>
+    <!-- Lib Scripts Plugin Js -->
+    
+    <script src="/static/assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!-- Sparkline Plugin Js -->
+    <script src="/static/assets/plugins/chartjs/Chart.bundle.min.js"></script>
+    <!-- Chart Plugins Js -->
+    
+    <script src="/static/assets/bundles/mainscripts.bundle.js"></script>
+    <!-- Custom Js -->
+    <script src="/static/assets/js/pages/charts/sparkline.min.js"></script>
+    <script src="/static/assets/js/pages/charts/chartjs.min.js"></script>
+    
+    <script src="/static/assets/js/pages/index.js"></script>
+</body>
+
+</html>

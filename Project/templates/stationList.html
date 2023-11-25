@@ -1,0 +1,68 @@
+<!-- station_list.html -->
+
+{% extends 'adminMaster.html' %}
+
+{% block body %}
+    <div class="row" style="padding-left: 50px">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <center><h3>Station Details</h3></center>
+                </div>
+                <div class="row" style="padding-left: 30px; padding-right: 30px">
+                    <div class="col-md-12">
+                        <div id="Panel1" style="width:100%; height:400px">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        {% comment %} <th>Status</th> {% endcomment %}
+                                        <th>Station ID</th>
+                                        <th>Station</th>
+                                        <th>Email</th>
+                                        <th>Mobile No</th>
+                                        <th>Area</th>
+                                        <th>City</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for station in stations %}
+                                        <tr>
+                                            {% comment %} <td>
+                                                <a href="{% url 'station_details' station.stationID status=station.status %}" class="btn btn-warning btn-sm" style="color:white; font-size: medium; font-weight: bold;">View Details</a>
+                                            </td> {% endcomment %}
+                                            <td>{{ station.stationId }}</td>
+                                            <td>{{ station.stationName }}</td>
+                                            <td>{{ station.email }}</td>
+                                            <td>{{ station.mobileNo }}</td>
+                                            <td>{{ station.Area }}</td>
+                                            <td>{{ station.city }}</td>
+                                            <td>{{ station.status }}</td>
+                                            <td>
+                                                <form method="post" action="{% url 'change_status' station.stationId %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-raised {% if station.status == 'Active' %}btn-danger{% else %}btn-success{% endif %}">
+                                                        {% if station.status == 'Active' %}Deactivate{% else %}Activate{% endif %}
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <script>
+        function changeStatus(stationId, currentStatus) {
+            var newStatus = currentStatus === 'Active' ? 'Inactive' : 'Active';
+            alert('Change status of Station ' + stationId + ' to ' + newStatus);
+            
+        }
+    </script> {% endcomment %}
+{% endblock %}

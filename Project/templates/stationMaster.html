@@ -85,9 +85,9 @@
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="active open"><a href="{% url 'stationDefault' %}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
-                    <li><a href="{% url 'stationDefault' %}.aspx"><i class="zmdi zmdi-account-o"></i><span>Station Detail</span></a></li>
-                    <li><a href="{% url 'stationDefault' %}.aspx"><i class="zmdi zmdi-bookmark"></i><span>Booking</span></a></li>
-                    <li><a href="{% url 'stationDefault' %}.aspx"><i class="zmdi zmdi-time-interval"></i><span>Status</span></a></li>
+                    <li><a href="{% url 'stationDetails' %}"><i class="zmdi zmdi-account-o"></i><span>Station Detail</span></a></li>
+                    <li><a href="{% url 'stationBooking' %}"><i class="zmdi zmdi-bookmark"></i><span>Booking</span></a></li>
+                    <li><a href="{% url 'bookingHistory' %}"><i class="zmdi zmdi-time-interval"></i><span>Status</span></a></li>
                     <li><a href="{% url 'index' %}"><i class="zmdi zmdi-square-right"></i><span>Log Out</span></a></li>
                 </ul>
             </div>
@@ -121,7 +121,7 @@
                     <div class="info-box-4 hover-zoom-effect">
                         <div class="icon"><i class="zmdi"><img id="Image1" src="/static/Images/booking.png" alt="" width="50px"></i></div>
                         <div class="content">
-                            <h3><a href="{% url 'stationDefault' %}">Booking</a></h3>
+                            <h3><a href="{% url 'stationBooking' %}">Booking</a></h3>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
                     <div class="info-box-4 hover-zoom-effect">
                         <div class="icon"><i class="zmdi"><img id="Image4" src="/static/Images/status.png" alt="" width="40px" height="50px"></i></div>
                         <div class="content">
-                            <h3><a href="{% url 'stationDefault' %}">Status</a></h3>
+                            <h3><a href="{% url 'bookingHistory' %}">Status</a></h3>
                             <ul class="sub-menu">
                                 <li><a href="#">In Process</a></li>
                                 <li><a href="#">Approved</a></li>

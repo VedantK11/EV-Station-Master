@@ -1,0 +1,195 @@
+<!-- slotbooking.html -->
+
+{% extends "master.html" %}
+
+{% block body %}
+<div class="row" style="padding-left: 80px">
+    <div class="col-md-11">
+        <div class="card">
+            <div class="card-header">
+                <center><h3>Slot Booking</h3></center>
+            </div>
+            <div class="row" style="padding-left: 30px; padding-right: 30px">
+                <form id="sign_up" class="col-xs-12"  method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                        </span>
+                        <div class="form-line">
+                            <input id="txtsID" name="txtsID" class="form-control" value="{{ station_id }}"  type="text" readonly>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                        </span>
+                        <div class="form-line">
+                            <input id="txtstation" name="txtstation"  class="form-control" value="{{ station_name }}" type="text" readonly>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                        </span>
+                        <div class="form-line">
+                            <input id="txtCostomerN"  name="txtCostomerN" class="form-control" placeholder=" Customer Name" type="text" required>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-car"></i>
+                        </span>
+                        <div class="form-line">
+                            <input id="txtregistration" name="txtregistration" class="form-control" placeholder="Vehicle Number" type="text" required>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    {% comment %} <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-car"></i>
+                        </span>
+                        <div class="form-line">
+                            <input type="radio" id="car" name="vehicleType" value="Car" required>
+                            <label for="car">Car</label>
+                            <input type="radio" id="bike" name="vehicleType" value="Bike/Scooter" required>
+                            <label for="bike">Bike/Scooter</label>
+                            <input type="radio" id="threeWheeler" name="vehicleType" value="Three Wheeler" required>
+                            <label for="threeWheeler">Three Wheeler</label>
+                             <span style="color: red;">*</span> 
+                        </div>
+                    </div> {% endcomment %}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-battery-charging"></i>
+                        </span>
+                        <div class="form-line">
+                            <select id="ddlcharingT" name ="ddlcharingT" class="form-control" required>
+                                <option value="" disabled selected>Select charging Type</option>
+                                <option value="rapidcharger">Rapid charging (50KWh)</option>
+                                <option value="fastCharger">Fast charging (30KWh)</option>
+                                <option value="slowcharger">Slow charging (10KWh)</option>
+                            </select>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-battery-charging"></i>
+                        </span>
+                        <div class="form-line">
+                            <input type="radio" id="amount" name="chargeMode" value="Amount" required>
+                            <label for="amount">Amount</label>
+                            <input type="radio" id="unit" name="chargeMode" value="Unit" required>
+                            <label for="unit">Unit</label>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label id="lblaU" for="txtvalue">Add Amount or Unit</label>
+                        </span>
+                        <div class="form-line">
+                            <input id="txtvalue" class="form-control" placeholder="" type="number" required>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label id="lbl" for="lblshowamount">Unit or Amount</label>
+                        </span>
+                        <div class="form-line">
+                            <label id="lblshowamount"></label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Select Date</span>
+                        <div class="form-line">
+                            <input id="txtSdate" name="txtSdate" class="form-control" placeholder="Select Date" type="date" required>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Select Arrival Time</span>
+                        <div class="form-line">
+                            <input id="txtarrivalT" name="txtarrivalT" class="form-control" placeholder="Select Arrival Time" type="time" required>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button id="Button1" class="btn btn-raised g-bg-cyan waves-effect" type="submit">Submit</button>
+                    </div>
+                    <div class="text-center"><a href="{% url 'searchStation' %}">Search Station</a></div>
+                    <input type="hidden" id="hfunit" name="hfunit">
+                    <input type="hidden" id="hftime" name="hftime">
+                    <input type="hidden" id="hfamount" name="hfamount">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#ddlcharingT, input[name="chargeMode"], #txtvalue').change(function() {
+            calculateAmount();
+        });
+    
+        function calculateAmount() {
+            var chargerType = $('#ddlcharingT').val();
+            var chargeMode = $('input[name="chargeMode"]:checked').val();
+            var inputValue = parseFloat($('#txtvalue').val());
+
+            /*if(chargeMode==="Amount"){
+                $('#lblaU').placeholder("Add Amount (in Rs. )");
+            }
+            else{
+                $('#lblaU').placeholder("Add Units (in KW )");
+            }*/
+            
+            if (!isNaN(inputValue)) {
+                var unit, amount, time;
+                if (chargerType === "rapidcharger") {
+                    if (chargeMode === "Unit") {
+                        unit = inputValue;
+                        amount =Math.ceil( unit * 10);
+                        time = 1.2 * unit;
+                    } else {
+                        amount = inputValue;
+                        unit =Math.ceil( amount / 10);
+                        time =Math.ceil( 1.2 * unit);
+                    }
+                } else if (chargerType === "fastCharger") {
+                    if (chargeMode === "Unit") {
+                        unit = inputValue;
+                        amount =Math.ceil( unit * 10);
+                        time =Math.ceil( 1.2 * unit);
+                    } else {
+                        amount = inputValue;
+                        unit =Math.ceil( amount / 10);
+                        time =Math.ceil( 1.2 * unit);
+                    }
+                } else if (chargerType === "slowcharger") {
+                    if (chargeMode === "Unit") {
+                        unit = inputValue;
+                        amount =Math.ceil( unit * 10);
+                        time =Math.ceil( 1.2 * unit);
+                    } else {
+                        amount = inputValue;
+                        unit =Math.ceil( amount / 10);
+                        time =Math.ceil( 1.2 * unit);
+                    }
+                }
+                
+                $('#lblshowamount').text(chargeMode === "Unit" ? unit + " KW units in " + time + " min for Rs. "+ amount : "Rs. " + amount + " for " + time + " min charge");
+                $('#hfunit').val(unit);
+                $('#hfamount').val(amount);
+                $('#hftime').val(time);
+            }
+        }
+    });
+    </script>
+    
+{% endblock %}

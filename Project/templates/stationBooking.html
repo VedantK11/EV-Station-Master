@@ -30,7 +30,7 @@
                                     {% for booking in bookings %}
                                         <tr>
                                             <td>
-                                                <a href="{% url 'updateBookingStatus' booking.slotID %}" class="btn btn-warning btn-sm" style="color: white; font-size: medium; font-weight: bold;">Update Status</a>
+                                                <a href="{% url 'updateBookingStatus' %}?id={{ booking.id }}" class="btn btn-warning btn-sm" style="color: white; font-size: medium; font-weight: bold;">Update Status</a>
                                             </td>
                                             <td>{{ booking.customerName }}</td>
                                             <td>{{ booking.vehicleRegistration }}</td>

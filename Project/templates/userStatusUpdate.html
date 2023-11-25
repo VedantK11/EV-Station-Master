@@ -1,0 +1,155 @@
+<!-- slotbooking.html -->
+
+{% extends "master.html" %}
+
+{% block body %}
+<div class="row" style="padding-left: 80px">
+    <div class="col-md-11">
+        <div class="card">
+            <div class="card-header">
+                <center><h3>Slot Booking</h3></center>
+            </div>
+            <div class="row" style="padding-left: 30px; padding-right: 30px">
+                <form id="sign_up" class="col-xs-12"  method="post">
+                    {% csrf_token %}
+                    <div class="input-group "style="display:none">
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="slotId" name="slotId" value="{{ id }}" readonly >
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                        </span>
+                        <div class="form-line">
+                            <input id="txtstation" name="txtstation"  class="form-control" value="{{  stationName }}" type="text" readonly>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                        </span>
+                        <div class="form-line">
+                            <input id="txtCostomerN"  name="txtCostomerN" class="form-control" value="{{ customerName }}" placeholder=" Customer Name" type="text" readonly>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-car"></i>
+                        </span>
+                        <div class="form-line">
+                            <input id="txtregistration" name="txtregistration" class="form-control" value="{{ vehicleRegistration }}" placeholder="Vehicle Number" type="text" readonly>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    {% comment %} <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-car"></i>
+                        </span>
+                        <div class="form-line">
+                            <input type="radio" id="car" name="vehicleType" value="Car" readonly>
+                            <label for="car">Car</label>
+                            <input type="radio" id="bike" name="vehicleType" value="Bike/Scooter" readonly>
+                            <label for="bike">Bike/Scooter</label>
+                            <input type="radio" id="threeWheeler" name="vehicleType" value="Three Wheeler" readonly>
+                            <label for="threeWheeler">Three Wheeler</label>
+                             <span style="color: red;">*</span> 
+                        </div>
+                    </div> {% endcomment %}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-battery-charging"></i>
+                        </span>
+                        <div class="form-line">
+                            <select id="ddlcharingT" name ="ddlcharingT"  value="{{ chargerType }}" class="form-control" selected="{{ chargerType }}" readonly>
+                                <option value="" disabled selected>Select charging Type</option>
+                                <option value="rapidcharger">Rapid charging (50KWh)</option>
+                                <option value="fastCharger">Fast charging (30KWh)</option>
+                                <option value="slowcharger">Slow charging (10KWh)</option>
+                            </select>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    {% comment %} <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="zmdi zmdi-battery-charging"></i>
+                        </span>
+                        <div class="form-line">
+                            <input type="radio" id="amount" name="chargeMode" value="Amount" readonly>
+                            <label for="amount">Amount</label>
+                            <input type="radio" id="unit" name="chargeMode" value="Unit" readonly>
+                            <label for="unit">Unit</label>
+                            <span style="color: red;">*</span>
+                        </div>
+                    </div> {% endcomment %}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            Unit
+                        </span>
+                        <div class="form-line">
+                            <label>{{ unit }} KW</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            Time
+                        </span>
+                        <div class="form-line">
+                            <label>{{ time }} min</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            Amount
+                        </span>
+                        <div class="form-line">
+                            <label>{{ amount }} ₹</label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Select Date</span>
+                        <div class="form-line">
+                            <input id="txtSdate" name="txtSdate" class="form-control" value="{{ arrivalDate }}" placeholder="Select Date" type="date" required>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Select Arrival Time</span>
+                        <div class="form-line">
+                            <input id="txtarrivalT" name="txtarrivalT" class="form-control" value="{{ arrivalTime }}" placeholder="Select Arrival Time" type="time" required>
+                            {% comment %} <span style="color: red;">*</span> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                           Station Remark
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" value ="{{ stationRemark }}"placeholder="Add remark" id="txtstationremark" name="txtstationremark" ValidationGroup="a" readonly>
+                            </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            Add Remark
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" value ="{{ userRemark }}"placeholder="Add remark" id="txtremark" name="txtremark" ValidationGroup="a" required>
+                            </div>
+                    </div>
+                    <div class="text-center">
+                        <button id="Button1" class="btn btn-raised g-bg-cyan waves-effect" type="submit">Submit</button>
+                    </div>
+                    <div class="text-center"><a href="{% url 'searchStation' %}">Search Station</a></div>
+                   </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+{% endblock %}

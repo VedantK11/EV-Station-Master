@@ -1,0 +1,57 @@
+<!-- viewstation.html -->
+
+{% extends "master.html" %}
+
+{% block body %}
+<div class="row" style="padding-left: 30px">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <center><h3>Station Details</h3></center>
+            </div>
+            
+            <div class="row" style="padding-left: 30px; padding-right: 30px">
+                <div class="col-md-8">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="panel" style="width: 100%;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Slot Booking</th>
+                                        <th>ID</th>
+                                        <th>Station Name</th>
+                                        <th>Address</th>
+                                        {% comment %} <th>Vehicle Types</th> {% endcomment %}
+                                        <th>Rapid Charger</th>
+                                        <th>Fast Charger</th>
+                                        <th>Slow Charger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for station in stations %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'slotBooking' %}?id={{ station.stationId }}&name={{ station.stationName }}" class="btn btn-warning" style="color: white; font-size: medium; font-weight: bold;">Request Booking</a>
+                                            {% comment %} <a href="{% url 'index'  %}" class="btn btn-warning" style="color: white; font-size: medium; font-weight: bold;">Request Booking</a> {% endcomment %}
+                                        </td>
+                                        <td>{{ station.stationId }}</td>
+                                        <td>{{ station.stationName }}</td>
+                                        <td>{{ station.city }}</td>
+                                        {% comment %} <td>{{ station.vehicleTypes }}</td> {% endcomment %}
+                                        <td>{{ station.rapidcharger}}</td>
+                                        <td>{{ station.fastCharger }}</td>
+                                        <td>{{ station.slowcharger }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

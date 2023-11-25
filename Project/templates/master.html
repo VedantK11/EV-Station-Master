@@ -34,16 +34,16 @@
     </div>
     <!--  Page Loader -->
     <!-- Overlay For Sidebars -->
-    {% comment %} <div class="overlay"></div> {% endcomment %}
+    <div class="overlay"></div>
     <!-- Overlay For Sidebars  end -->
     <!-- Top Bar -->
-     {% comment %} <nav class="navbar flex-row">
+      <nav class="navbar flex-row">
         <div class="container-fluid">
              <div class="navbar-header" style="text-align: left;">
-                <a class="navbar-brand" style="text-align: left;"  href="#">Charging Station Master</a>
+                {% comment %} <a class="navbar-brand" style="text-align: left;"  href="#">Charging Station Master</a> {% endcomment %}
             </div> 
         </div>
-    </nav>    {% endcomment %}
+    </nav>    
     
     <!-- Top Bar -->
     <section>
@@ -71,17 +71,17 @@
                         <a href="{% url "index" %}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a>
                     </li>
                     <li>
-                        <a href="{% url "index" %}"><i class="zmdi zmdi-search"></i><span>Search Station</span></a>
+                        <a href="{% url "searchStation" %}"><i class="zmdi zmdi-search"></i><span>Search Station</span></a>
                     </li>
                     <li>
                         <a href="{% url "stationLogin" %}"><i class="zmdi zmdi-account-o"></i><span>Station Login</span></a>
                     </li>
                     <li>
-                        <a href="{% url "index" %}"><i class="zmdi zmdi-account-o"></i><span>Admin Login</span></a>
+                        <a href="{% url "adminLogin" %}"><i class="zmdi zmdi-account-o"></i><span>Admin Login</span></a>
                     </li>
-                    <li>
+                    {% comment %} <li>
                         <a href="{% url "index" %}" target="_blank"><i class="zmdi zmdi-phone"></i><span>CONTACT</span></a>
-                    </li>
+                    </li> {% endcomment %}
                 </ul>
             </div>
             <!-- #Menu -->
@@ -99,7 +99,7 @@
                     <div class="info-box-4 hover-zoom-effect">
                         <div class="icon"> <i class="zmdi"><img src="/static/Images/locate.png" width="50px" alt="Locate Image"></i> </div>
                         <div class="content">
-                            <h3><a href="{% url 'index' %}">Search Station</a></h3>
+                            <h3><a href="{% url 'searchStation' %}">Search Station</a></h3>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                     <div class="info-box-4 hover-zoom-effect">
                         <div class="icon"> <i class="zmdi"><img src="/static/Images/admin.ico" width="50px" alt="Admin Image"></i> </div>
                         <div class="content">
-                            <h3><a href="{% url 'index' %}">Admin Login</a></h3>
+                            <h3><a href="{% url 'adminLogin' %}">Admin Login</a></h3>
                         </div>
                     </div>
                 </div>

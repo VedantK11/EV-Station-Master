@@ -28,11 +28,32 @@ class StationDetails(models.Model):
     loc5 =models.CharField(max_length=255,default="_") 
     loc6 =models.CharField(max_length=255,default="_") 
     
+# class SlotBooking(models.Model):
+#     customerName = models.CharField(max_length=255)
+#     vehicleRegistration = models.CharField(max_length=20)
+#     # arrivalDay = models.DateTimeField(_(""), auto_now=False, auto_now_add=False)
+#     arrivalTime = models.DateTimeField()
+#     userRemark = models.TextField()
+#     stationRemark = models.TextField()
+#     status = models.CharField(max_length=20)
+
 class SlotBooking(models.Model):
+    stationId = models.IntegerField()
+    stationName= models.CharField(max_length=255,default="_")
     customerName = models.CharField(max_length=255)
     vehicleRegistration = models.CharField(max_length=20)
-    # arrivalDay = models.DateTimeField(_(""), auto_now=False, auto_now_add=False)
-    arrivalTime = models.DateTimeField()
-    userRemark = models.TextField()
-    stationRemark = models.TextField()
-    status = models.CharField(max_length=20)
+    chargerType = models.CharField(max_length=255)
+    # vehicleTypes = models.CharField(max_length=255)
+    # startDateTime = models.DateTimeField()
+    # endDateTime = models.DateTimeField()
+    # arrivalTime = models.TimeField()
+    arrivalTime=models.DateTimeField()
+    status = models.CharField(max_length=255, default="Request Pending")
+    userRemark = models.TextField(default="-")
+    stationRemark = models.TextField(default="_")
+    unit= models.IntegerField()
+    time = models.IntegerField()
+    amount = models.IntegerField()
+
+    def __str__(self):
+        return f"SlotBooking - ID: {self.id}, Customer: {self.customerName}"
