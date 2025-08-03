@@ -1,0 +1,418 @@
+<!-- searchStation.html with ML Recommendations -->
+
+{% extends "master.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-top"></div>
+            <div class="card">
+                {% if message %}
+                    <script>
+                        // Display alert for 2 seconds
+                        var message = "{{ message }}";
+                        alert(message);
+                        
+                         setTimeout(function(){
+                            window.location.href = "{% url 'searchStation' %}";  
+                        }, 100);   
+                    </script>
+                {% endif %}
+
+                <!-- AI Recommendation Section -->
+                <div class="row" style="padding: 20px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 10px; border-radius: 10px;">
+                    <div class="col-md-12">
+                        <h2 class="title" style="text-align:center; color: white; margin-bottom: 20px;">
+                            <img src="/static/Images/ai-brain.png" width="40px" alt="AI Icon" style="margin-right: 10px;">
+                            AI-Powered Station Recommendations
+                        </h2>
+                        <p style="text-align: center; color: #f8f9fa; margin-bottom: 25px;">
+                            Get personalized charging station recommendations based on your location, preferences, and real-time availability.
+                        </p>
+                        
+                        <form method="post" id="recommendationForm">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 15px;">
+                                        <i class="zmdi zmdi-pin" style="font-size: 24px; color: #ffc107; margin-bottom: 10px;"></i>
+                                        <h6 style="color: white; margin-bottom: 10px;">Your Location</h6>
+                                        <input type="hidden" name="user_lat" id="user_lat" value="19.0760">
+                                        <input type="hidden" name="user_lng" id="user_lng" value="72.8777">
+                                        <button type="button" class="btn btn-warning btn-sm" onclick="getCurrentLocation()" style="margin-bottom: 10px;">
+                                            <i class="zmdi zmdi-gps-dot"></i> Use Current Location
+                                        </button>
+                                        <small style="display: block; color: #f8f9fa;" id="location_display">Mumbai, Maharashtra</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group" style="margin-bottom: 15px;">
+                                        <span class="input-group-addon" style="background: rgba(255,255,255,0.1); color: white; border: none;">
+                                            <i class="zmdi zmdi-battery-flash"></i>
+                                        </span>
+                                        <div class="form-line">
+                                            <select name="charger_preference" id="charger_preference" class="form-control" style="background: rgba(255,255,255,0.1); color: white; border: none;">
+                                                <option value="rapid" style="color: black;">Rapid Charging (Fast)</option>
+                                                <option value="fast" selected style="color: black;">Fast Charging</option>
+                                                <option value="slow" style="color: black;">Slow Charging (Economical)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" name="btn_recommend" class="btn btn-raised waves-effect" style="background: #ffc107; color: #333; width: 100%; font-weight: bold;">
+                                        <i class="zmdi zmdi-flash"></i> Get AI Recommendations
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Recommendations Display -->
+                {% if show_recommendations %}
+                <div class="row" style="padding: 20px 30px;">
+                    <div class="col-md-12">
+                        <h3 style="text-align: center; margin-bottom: 20px; color: #333;">
+                            <i class="zmdi zmdi-star"></i> Recommended Stations for You
+                        </h3>
+                        <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                            Based on availability, distance, ratings, and your preferences
+                        </p>
+                    </div>
+                    
+                    {% for rec in recommendations %}
+                    <div class="col-md-6" style="margin-bottom: 20px;">
+                        <div class="card" style="border-left: 4px solid #28a745; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                            <div class="card-body" style="padding: 20px;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                                    <h5 style="margin: 0; color: #333;">{{ rec.station.stationName }}</h5>
+                                    <span style="background: linear-gradient(45deg, #28a745, #20c997); color: white; border-radius: 20px; padding: 5px 12px; font-weight: bold; font-size: 12px;">
+                                        Score: {{ rec.score|floatformat:1 }}
+                                    </span>
+                                </div>
+                                
+                                <p style="color: #666; margin-bottom: 15px;">
+                                    <i class="zmdi zmdi-pin"></i> {{ rec.station.city }}, {{ rec.station.Area }}
+                                </p>
+                                
+                                <div class="row" style="text-align: center; margin-bottom: 15px;">
+                                    <div class="col-4">
+                                        <i class="zmdi zmdi-flash" style="color: #ffc107; font-size: 18px;"></i><br>
+                                        <small>Rapid: {{ rec.station.rapidcharger }}</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <i class="zmdi zmdi-battery-flash" style="color: #ffc107; font-size: 18px;"></i><br>
+                                        <small>Fast: {{ rec.station.fastCharger }}</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <i class="zmdi zmdi-power" style="color: #ffc107; font-size: 18px;"></i><br>
+                                        <small>Slow: {{ rec.station.slowcharger }}</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" style="margin-bottom: 15px;">
+                                    <div class="col-6">
+                                        <small><strong>Distance:</strong> {{ rec.distance|floatformat:1 }} km</small>
+                                    </div>
+                                    <div class="col-6">
+                                        <small><strong>Rating:</strong> 
+                                            {% for i in "12345" %}
+                                                {% if forloop.counter <= rec.station.average_rating %}
+                                                    <i class="zmdi zmdi-star" style="color: #ffc107;"></i>
+                                                {% else %}
+                                                    <i class="zmdi zmdi-star-outline" style="color: #ffc107;"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #dc3545; font-weight: bold; font-size: 14px;">
+                                        <i class="zmdi zmdi-time"></i> ~{{ rec.predicted_wait_time }} min wait
+                                    </span>
+                                    <a href="{% url 'slotBooking' %}?id={{ rec.station.stationId }}&name={{ rec.station.stationName }}&recommended=true" 
+                                       class="btn btn-raised g-bg-green waves-effect" style="padding: 8px 16px;">
+                                        <i class="zmdi zmdi-calendar-plus"></i> Book Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <div style="background: #e3f2fd; border: 1px solid #90caf9; color: #1976d2; padding: 15px; border-radius: 5px; text-align: center;">
+                            <i class="zmdi zmdi-info"></i> No recommendations available. Try training the ML model with more data.
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Original Search Section -->
+                <div class="row" style="padding-left:30px ">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h1 class="title" style="text-align:center; margin-top: 30px;">Traditional Search
+                            <img src="/static/Images/locate.png" width="50px" alt="Locate Image">
+                        </h1>
+                        <div class="col-md-12">
+                            <form id="sign_in" method="post">
+                                {% csrf_token %}
+
+                                <div>
+                                    <div class="form-line">
+                                        <center>
+                                            <img src="/static/Images/mapLocate.jpg" height="150px" width="30%" alt="Map Locate Image">
+                                        </center>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="zmdi zmdi-account"></i>
+                                    </span>
+                                    <div class="form-line">
+                                        <select id="ddlArea" name="ddlArea" class="form-control">
+                                            <option>Search By</option>
+                                            <option>Station Name</option>
+                                            <option>Area</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="zmdi zmdi-account"></i>
+                                    </span>
+                                    <div class="form-line">
+                                        <input id="txtusername" name="txtusername" class="form-control" placeholder="Search" type="text">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="text-center">
+                                        <button id="Button1" name="Button1" class="btn btn-raised g-bg-cyan waves-effect" type="submit">Search</button>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <a href="{% url 'index' %}">Home Page</a>
+                                    </div>
+                                    <br />
+                                    <div class="text-center">
+                                        <button id="Button2" name="Button2" class="btn btn-raised g-bg-cyan waves-effect" type="submit">Search User Status</button>
+                                    </div>
+                                    <br />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional CSS for better styling -->
+<style>
+.recommendation-card {
+    border-left: 4px solid #28a745;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.recommendation-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.score-badge {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.ai-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 10px;
+}
+
+.location-box {
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.charger-icon {
+    color: #ffc107;
+    font-size: 18px;
+}
+
+.wait-time {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.info-alert {
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    color: #1976d2;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+</style>
+
+<!-- JavaScript for location and interactions -->
+<script>
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            document.getElementById('user_lat').value = position.coords.latitude;
+            document.getElementById('user_lng').value = position.coords.longitude;
+            
+            // Update location display (you can enhance this with reverse geocoding)
+            document.getElementById('location_display').textContent = 
+                'Lat: ' + position.coords.latitude.toFixed(4) + ', Lng: ' + position.coords.longitude.toFixed(4);
+                
+            // Optional: Show success message
+            alert('Location updated successfully!');
+        }, function(error) {
+            alert('Error getting location: ' + error.message);
+        });
+    } else {
+        alert('Geolocation is not supported by this browser.');
+    }
+}
+
+// Add smooth scrolling to recommendations
+document.addEventListener('DOMContentLoaded', function() {
+    const recommendButton = document.querySelector('button[name="btn_recommend"]');
+    if (recommendButton) {
+        recommendButton.addEventListener('click', function() {
+            // Add loading state
+            this.innerHTML = '<i class="zmdi zmdi-spinner zmdi-hc-spin"></i> Getting Recommendations...';
+            this.disabled = true;
+        });
+    }
+});
+
+// Add hover effects for recommendation cards
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.recommendation-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+        });
+    });
+});
+</script>
+
+{% endblock %}
+
+
+
+
+
+<!-- student_login.html -->
+
+
+<!-- 
+{% extends "master.html" %}
+
+{% block body %}
+<div class="container  ">
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card-top"></div>
+            <div class="card">
+                {% if message %}
+                    <script>
+                        // Display alert for 2 seconds
+                        var message = "{{ message }}";
+                        alert(message);
+                        
+                         setTimeout(function(){
+                            window.location.href = "{% url 'searchStation' %}";  
+                        }, 100);   
+                    </script>
+                 {% endif %}
+                <div class="row" style="padding-left:30px ">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h1 class="title" style="text-align:center">Search Station
+                            <img src="/static/Images/locate.png" width="50px" alt="Locate Image">
+                        </h1>
+                        <div class="col-md-12">
+                            <form id="sign_in" method="post">
+                                {% csrf_token %}
+
+                                <div>
+                                    <div class="form-line">
+                                        <center>
+                                            <img src="/static/Images/mapLocate.jpg" height="150px" width="30%" alt="Map Locate Image">
+                                        </center>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="zmdi zmdi-account"></i>
+                                    </span>
+                                    <div class="form-line">
+                                        <select id="ddlArea" name="ddlArea" class="form-control">
+                                            <option>Search By</option>
+                                            <option>Station Name</option>
+                                            <option>Area</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="zmdi zmdi-account"></i>
+                                    </span>
+                                    <div class="form-line">
+                                        <input id="txtusername" name="txtusername" class="form-control" placeholder="Search" type="text">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="text-center">
+                                        <button id="Button1" name="Button1" class="btn btn-raised g-bg-cyan waves-effect" type="submit">Search</button>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <a href="{% url 'index' %}">Home Page</a>
+                                    </div>
+                                    <br />
+                                    <div class="text-center">
+                                        <button id="Button2" name="Button2" class="btn btn-raised g-bg-cyan waves-effect" type="submit">Search User Status</button>
+                                    </div>
+                                    <br />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} -->
